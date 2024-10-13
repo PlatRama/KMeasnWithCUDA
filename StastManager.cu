@@ -131,7 +131,7 @@ public:
 
         // Intestazione del CSV
         file <<
-            "NumPoints,NumCentroids,NumCudaThreads,SeqMeanTime,SeqStdDev,ParMeanTime,ParStdDev,Speedup,Efficiency\n";
+            "NumPoints,NumCentroids,NumCudaThreads,IterationTolerance,SeqMeanTime,SeqStdDev,ParMeanTime,ParStdDev,Speedup,Efficiency\n";
 
         for (const auto& entry : statsMap)
         {
@@ -140,9 +140,10 @@ public:
             int numPoints = get<0>(key);
             int numCentroids = get<1>(key);
             int numCudaThreads = get<2>(key);
+            int iterationTolerance = get<3>(key);
 
             // Scrivi le statistiche nel file CSV
-            file << numPoints << "," << numCentroids << "," << numCudaThreads << ","
+            file << numPoints << "," << numCentroids << "," << numCudaThreads << "," << iterationTolerance << ","
                 << stats.getSeqMeanTime() << "," << stats.getSeqStdDev() << ","
                 << stats.getParMeanTime() << "," << stats.getParStdDev() << ","
                 << stats.getSpeedup() << "," << stats.getEfficiency(numCudaThreads) << "\n";
