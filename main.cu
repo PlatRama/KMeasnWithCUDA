@@ -16,15 +16,19 @@ int main()
     int numIterationDefault = 100;
     int threadsPerBlockDefault = 256;
 
+    vector numIterations = {50, 100, 200, 300, 400, 500};
     //NUM POINTS TEST
     cout << "INIT NUMBER POINT TEST\n";
-    vector numPoints = {100, 1000, 10000, 100000, 1000000, 10000000};
+    vector numPoints = {100, 1000, 10000, 100000, 1000000};
     KMeansStatsManager numPointTestStatsManager;
-    for (int numPoint : numPoints)
+    for (int numIteration : numIterations)
     {
-        kMeansSeqVersion(numPointTestStatsManager, numPoint, numCentroidsDefault, numIterationDefault, threadsPerBlockDefault);
+        for (int numPoint : numPoints)
+        {
+            kMeansSeqVersion(numPointTestStatsManager, numPoint, numCentroidsDefault, numIteration, threadsPerBlockDefault);
 
-        kMeansCUDAVersion(numPointTestStatsManager, numPoint, numCentroidsDefault, numIterationDefault, threadsPerBlockDefault);
+            kMeansCUDAVersion(numPointTestStatsManager, numPoint, numCentroidsDefault, numIteration, threadsPerBlockDefault);
+        }
     }
     cout << "END NUMBER POINT TEST\n";
     // Print stats
@@ -35,13 +39,16 @@ int main()
 
     //NUM CENTROIDS TEST
     cout << "\nINIT NUMBER CENTROIDS TEST\n";
-    vector numCentroids = {1, 10, 20, 30, 40, 50, 100};
+    vector numCentroids = {1, 10, 20, 30, 40, 50};
     KMeansStatsManager numCentroidTestStatsManager;
-    for (int numCentroid : numCentroids)
+    for(int numIteration : numIterations)
     {
-        kMeansSeqVersion(numCentroidTestStatsManager, numPointsDefault, numCentroid, numIterationDefault, threadsPerBlockDefault);
+        for (int numCentroid : numCentroids)
+        {
+            kMeansSeqVersion(numCentroidTestStatsManager, numPointsDefault, numCentroid, numIteration, threadsPerBlockDefault);
 
-        kMeansCUDAVersion(numCentroidTestStatsManager, numPointsDefault, numCentroid, numIterationDefault, threadsPerBlockDefault);
+            kMeansCUDAVersion(numCentroidTestStatsManager, numPointsDefault, numCentroid, numIteration, threadsPerBlockDefault);
+        }
     }
     cout << "END NUMBER CENTROIDS TEST\n";
     // Print stats
@@ -51,7 +58,7 @@ int main()
 
     //ITERATION TEST
     cout << "\nINIT NUMBER ITERATION TEST\n";
-    vector numIterations = {50, 100, 200, 300, 400, 500};
+    //vector numIterations = {50, 100, 200, 300, 400, 500};
     KMeansStatsManager iteTestStatsManager;
     for (int numIteration : numIterations)
     {
