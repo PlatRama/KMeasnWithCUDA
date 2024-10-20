@@ -1,10 +1,6 @@
-#include <iostream>
-#include <cmath>
 #include <cstdlib>
 #include <cfloat>
-#include <numeric>
 #include <chrono>
-#include <vector>
 
 using namespace std;
 using namespace chrono;
